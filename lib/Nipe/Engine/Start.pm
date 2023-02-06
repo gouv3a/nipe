@@ -9,18 +9,8 @@ package Nipe::Engine::Start {
 		my $transferPort = "9051";
 		my @table        = ("nat", "filter");
 		my $network      = "10.66.0.0/255.255.0.0";
-		my $startTor     = "systemctl start tor";
-
-		if ($device{distribution} eq "void") {
-			$startTor = "sv start tor > /dev/null";
-		}
-
-		elsif (-e "/etc/init.d/tor") {
-			$startTor = "/etc/init.d/tor start > /dev/null";
-		}
 
 		system ("tor -f .configs/$device{distribution}-torrc > /dev/null");
-		system ($startTor);
 
 		foreach my $table (@table) {
 			my $target = "ACCEPT";
